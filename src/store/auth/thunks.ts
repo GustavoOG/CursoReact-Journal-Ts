@@ -20,17 +20,17 @@ export const startGoogleSignIn: any = () => {
 };
 
 
-export const startCreatingUserWithEmailPassword = (loginData: loginClass) => {
+export const startCreatingUserWithEmailPassword : any = (loginData: loginClass) => {
 
   return async (dispatch: AppDispatch, getState: typeof store.getState) => {
     dispatch(checkingCredentials());
     const result = await registerUsersWithEmailPassword(loginData);
-    if (!result.ok) return dispatch(logout(result.errorMessage))
+    if (!result?.ok) return dispatch(logout(result?.errorMessage))
     dispatch(login(result))
   };
 }
 
-export const startLoginWithEmailPassword = (loginData: loginClass) => {
+export const startLoginWithEmailPassword : any = (loginData: loginClass) => {
 
   return async (dispatch: AppDispatch, getState: typeof store.getState) => {
     dispatch(checkingCredentials());
@@ -41,7 +41,7 @@ export const startLoginWithEmailPassword = (loginData: loginClass) => {
   };
 }
 
-export const starLogout = () => {
+export const starLogout : any = () => {
 
   return async (dispatch: AppDispatch) => {
     await logoutFirebase();

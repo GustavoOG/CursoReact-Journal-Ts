@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
+import { GoogleAuthProvider, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
 import { FirebaseAuth } from "./config";
 import { loginClass } from "../interface/loginClass";
 
@@ -14,7 +14,7 @@ export const singInWithGoogle = async () => {
             ok: true, displayName, email, photoURL, uid
         }
 
-    } catch (error) {
+    } catch (error: any) {
         //console.log(error);
         // Handle Errors here.
         const errorCode = error.code;
@@ -30,14 +30,18 @@ export const registerUsersWithEmailPassword = async (loginData: loginClass) => {
     try {
         const resp = await createUserWithEmailAndPassword(FirebaseAuth, loginData.email, loginData.password);
         const { uid, photoURL } = resp.user;
-        //TODO: actualziar el display name y photo en firebase
-        await updateProfile(FirebaseAuth.currentUser, { displayName: loginData.displayName })
-        return {
-            ok: true,
-            photoURL, uid, displayName: loginData.displayName, email: loginData.email
+        if (FirebaseAuth.currentUser) {
+            const user: User = FirebaseAuth.currentUser;
+
+            //TODO: actualziar el display name y photo en firebase
+            await updateProfile(user, { displayName: loginData.displayName })
+            return {
+                ok: true,
+                photoURL, uid, displayName: loginData.displayName, email: loginData.email
+            }
         }
     }
-    catch (error) {
+    catch (error: any) {
         return {
             ok: false,
             errorMessage: error.message
@@ -53,7 +57,7 @@ export const loginWithEmailPassword = async (loginData: loginClass) => {
             photoURL: resp.user.photoURL, uid: resp.user.uid, displayName: resp.user.displayName, email: loginData.email
         }
     }
-    catch (error) {
+    catch (error: any) {
         return {
             ok: false,
             errorMessage: error.message

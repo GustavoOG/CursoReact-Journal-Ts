@@ -9,7 +9,7 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
   };
 }
 
-export function ImageGallery({images}) {
+export function ImageGallery({ images }: any) {
   return (
     <ImageList sx={{ width: "100%", height: 500 }} cols={4} rowHeight={200}>
       {images &&

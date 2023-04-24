@@ -6,7 +6,7 @@ import { fileUpload, loadNotes } from "../../helpers";
 import { AppDispatch, store } from "../store";
 import { deleteNoteById } from "./journalSlice";
 
-export const startNewNote = () => {
+export const startNewNote = (): any => {
 
     return async (dispatch: AppDispatch, getState: typeof store.getState) => {
         //uid
@@ -28,11 +28,14 @@ export const startNewNote = () => {
     }
 }
 
-export const startLoadingNotes = () => {
+export const startLoadingNotes = (): any => {
     return async (dispatch: AppDispatch, getState: typeof store.getState) => {
         const { uid } = getState().auth;
-        const notes = await loadNotes(uid);
-        dispatch(setNotes(notes));
+        if (uid) {
+            const _uid = uid;
+            const notes = await loadNotes(_uid);
+            dispatch(setNotes(notes));
+        }
     }
 }
 
@@ -54,7 +57,7 @@ export const startSaveNote = (): any => {
     }
 }
 
-export const starUploadingFiles = (files = []) => {
+export const starUploadingFiles = (files = []): any => {
     return async (dispatch: AppDispatch, getState: typeof store.getState) => {
         dispatch(setSaving());
 
@@ -70,14 +73,14 @@ export const starUploadingFiles = (files = []) => {
     }
 }
 
-export const starDeletingNote = () => {
+export const starDeletingNote = (): any => {
     return async (dispatch: AppDispatch, getState: typeof store.getState) => {
         const { uid } = getState().auth;
         const { active: note } = getState().journal;
 
         const docRef = doc(FirebaseDB, `${uid}/journal/notes/${note?.id}`);
         await deleteDoc(docRef);
-        dispatch(deleteNoteById(note.id));
+        dispatch(deleteNoteById(note?.id));
 
     }
 }

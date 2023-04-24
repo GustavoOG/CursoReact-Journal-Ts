@@ -22,12 +22,12 @@ const fromData: loginClass = {
 };
 
 const formValidations = {
-  email: [(value) => value.includes("@"), "El correo debe de tener una @"],
+  email: [(value:any) => value.includes("@"), "El correo debe de tener una @"],
   password: [
-    (value) => value.length >= 6,
+    (value:any) => value.length >= 6,
     "El password debe de tener más de 6 letras",
   ],
-  displayName: [(value) => value.length >= 1, "El nombre es obligatorio"],
+  displayName: [(value:any) => value.length >= 1, "El nombre es obligatorio"],
 };
 
 export function RegisterPage() {
@@ -53,7 +53,7 @@ export function RegisterPage() {
     passwordValid,
   } = useForm(fromData, formValidations);
 
-  const obSubmit = (event) => {
+  const obSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setformSubmitted(true);
     if (!isFormValid) return;

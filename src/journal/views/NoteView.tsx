@@ -47,9 +47,10 @@ const NoteView = () => {
   const onSaveNote = () => {
     dispatch(startSaveNote());
   };
-  const onFileInputChange = ({ target }) => {
-    if (target.files === 0) return;
-    dispatch(starUploadingFiles(target.files));
+  const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (!fileList) return;
+    dispatch(starUploadingFiles(fileList));
   };
 
   const onDelete = () => {

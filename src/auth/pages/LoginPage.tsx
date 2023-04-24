@@ -1,6 +1,13 @@
 import { Google, Password } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout";
 import { useForm } from "../../hooks";
@@ -13,6 +20,7 @@ import { RootState } from "../../store";
 import { loginClass } from "../../interface/loginClass";
 
 const loginForm: loginClass = {
+  displayName: "",
   email: "",
   password: "",
 };
@@ -25,7 +33,7 @@ export function LoginPage() {
   const { formState, email, password, onInputChange } = useForm(loginForm);
   const isAuthenticating = useMemo(() => status === "checking", [status]);
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     //console.log({ email, Password });
     //!No es esta la acción a despachar
@@ -39,8 +47,10 @@ export function LoginPage() {
 
   return (
     <AuthLayout title="Login">
-      <form onSubmit={onSubmit} 
-      className="animate__animated animate__fadeIn animate__faster">
+      <form
+        onSubmit={onSubmit}
+        className="animate__animated animate__fadeIn animate__faster"
+      >
         <Grid container>
           <Grid item xs={12} sx={{ mt: 2 }}>
             <TextField

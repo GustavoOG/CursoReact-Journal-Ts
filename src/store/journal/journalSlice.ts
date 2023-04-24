@@ -12,7 +12,7 @@ const initialState: journalState = {
     isSaving: false,
     messageSaved: '',
     notes: [],
-    active: { Id: '', title: '', body: '' } as noteClass
+    active: { Id: '', title: '', body: '', imagesUrls: []  } as noteClass
 }
 
 export const journalSlice = createSlice({

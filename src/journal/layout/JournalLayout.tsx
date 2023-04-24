@@ -1,9 +1,12 @@
 import { Box, Toolbar } from "@mui/material";
 import { NavBar, SideBar } from "../components";
+import { ReactNode } from "react";
 
 const drawerWidth: number = 200;
-
-const JournalLayout = ({ children }) => {
+interface Props {
+  children?: ReactNode;
+}
+const JournalLayout = ({ children }:Props) => {
   return (
     <Box sx={{ display: "flex" }} className="animate__animated animate__fadeIn animate__faster">
       <NavBar drawerWidth={drawerWidth}></NavBar>
